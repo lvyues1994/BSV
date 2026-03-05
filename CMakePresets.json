@@ -11,7 +11,7 @@
             "displayName": "Linux - Debug",
             "description": "Linux build with tests",
             "generator": "Unix Makefiles",
-            "binaryDir": "${sourceDir}/build/linux",
+            "binaryDir": "${sourceDir}/build/",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "BSV_BUILD_TESTS": "ON"
@@ -22,7 +22,7 @@
             "displayName": "Android - Debug (NDK r25c)",
             "description": "Android build using NDK r25c toolchain",
             "generator": "Unix Makefiles",
-            "binaryDir": "${sourceDir}/build/android",
+            "binaryDir": "${sourceDir}/build/",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "BSV_BUILD_TESTS": "OFF",

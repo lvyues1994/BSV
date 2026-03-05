@@ -53,3 +53,6 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Testing/
+
+# Auto-detected cache/temp
+.cache/
