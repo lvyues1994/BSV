@@ -110,6 +110,40 @@
         "tdd-workflow",
         "testing-safe-protocol"
       ],
+      "complete": true
+    },
+    {
+      "task": "Add CMake And Test Framework",
+      "description": "补齐CMakeLists与测试框架并按TDD流程验证Linux GPU CSC。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "补齐顶层与模块CMakeLists并定义静态库与测试目标"
+        },
+        {
+          "step": 2,
+          "description": "搭建单元测试框架并覆盖Linux GPU CSC与CPU对照测试"
+        },
+        {
+          "step": 3,
+          "description": "按TDD流程运行Linux GPU CSC单元测试并记录结果"
+        }
+      ],
+      "acceptance-criteria": "必须提供完整的CMakeLists用于构建静态库与测试目标。Linux GPU CSC必须具备单元测试并包含GPU输出与CPU参考逐像素对照。必须在Linux上运行相关测试并记录测试结果。",
+      "test-plan": {
+        "unit": [
+          "CMake配置生成测试目标并可被CMake构建",
+          "GPU CSC单元测试可执行并包含NV12与NV21用例",
+          "GPU与CPU对照测试需在允许误差范围内通过"
+        ],
+        "integration": [],
+        "e2e-manual": []
+      },
+      "skills": [
+        "tdd-workflow",
+        "testing-safe-protocol",
+        "verification-before-completion"
+      ],
       "complete": false
     },
     {
