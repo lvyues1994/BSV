@@ -1,0 +1,52 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 16,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "linux",
+            "displayName": "Linux - Debug",
+            "description": "Linux build with tests",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BSV_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "android",
+            "displayName": "Android - Debug (NDK r25c)",
+            "description": "Android build using NDK r25c toolchain",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/android",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BSV_BUILD_TESTS": "OFF",
+                "CMAKE_TOOLCHAIN_FILE": "/opt/android-ndk-r25c/build/cmake/android.toolchain.cmake",
+                "ANDROID_NDK": "/opt/android-ndk-r25c",
+                "ANDROID_ABI": "arm64-v8a",
+                "ANDROID_PLATFORM": "android-24"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "linux",
+            "configurePreset": "linux"
+        },
+        {
+            "name": "android",
+            "configurePreset": "android"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "linux",
+            "configurePreset": "linux"
+        }
+    ]
+}
