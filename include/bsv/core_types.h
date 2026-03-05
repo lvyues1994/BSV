@@ -69,6 +69,7 @@ class IBuffer {
 public:
     virtual ~IBuffer() = default;
     virtual const BufferDesc& GetDesc() const = 0;
+    virtual const PlatformHandle* GetPlatformHandle() const = 0;
     virtual void* Data() = 0;
     virtual const void* Data() const = 0;
     virtual size_t Size() const = 0;
@@ -91,6 +92,7 @@ struct CameraConfig {
     uint32_t height = 0;
     uint32_t fps = 0;
     PixelFormat output_format = PixelFormat::kUnknown;
+    const char* camera_id = nullptr;
 };
 
 struct CscConfig {
@@ -108,6 +110,10 @@ public:
     virtual BsvError Stop() = 0;
     virtual void Shutdown() = 0;
     virtual BsvError SetFrameCallback(FrameCallback callback, void* user_data) = 0;
+    virtual BsvError RequestCameraSwitch(const char* camera_id) {
+        (void)camera_id;
+        return BsvError::kNotSupported;
+    }
 };
 
 class ICscConverter {

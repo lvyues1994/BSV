@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "bsv/core_types.h"
+#include "core_types.h"
 
 namespace bsv {
 

@@ -3,6 +3,13 @@ add_library(bsv STATIC
     gpu_csc_linux.cpp
 )
 
+if(ANDROID)
+    target_sources(bsv
+        PRIVATE
+            camera2_provider_android.cpp
+    )
+endif()
+
 target_include_directories(bsv
     PUBLIC
         ${PROJECT_SOURCE_DIR}/include

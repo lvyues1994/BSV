@@ -175,7 +175,7 @@
       "skills": [
         "testing-safe-protocol"
       ],
-      "complete": false
+      "complete": true
     },
     {
       "task": "Implement Android GPU CSC Converter",

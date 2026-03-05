@@ -34,6 +34,10 @@ const BufferDesc& LinuxBuffer::GetDesc() const {
     return desc_;
 }
 
+const PlatformHandle* LinuxBuffer::GetPlatformHandle() const {
+    return nullptr;
+}
+
 void* LinuxBuffer::Data() {
     return data_;
 }

@@ -11,6 +11,7 @@ public:
     ~LinuxBuffer() override;
 
     const BufferDesc& GetDesc() const override;
+    const PlatformHandle* GetPlatformHandle() const override;
     void* Data() override;
     const void* Data() const override;
     size_t Size() const override;
