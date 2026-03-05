@@ -1,5 +1,6 @@
 add_library(bsv STATIC
     buffer_linux.cpp
+    controller.cpp
     gpu_csc_linux.cpp
 )
 
@@ -23,6 +24,7 @@ target_link_libraries(bsv
         EGL
         GLESv2
         OpenGL::GL
+        Threads::Threads
 )
 
 target_compile_options(bsv
