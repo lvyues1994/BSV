@@ -4,6 +4,8 @@ add_library(bsv_controller STATIC
 
 target_include_directories(bsv_controller
     PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+    PRIVATE
         ${PROJECT_SOURCE_DIR}/src/controller/include
 )
 

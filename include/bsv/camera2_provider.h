@@ -1,6 +1,0 @@
-#ifndef BSV_CAMERA2_PROVIDER_PUBLIC_H
-#define BSV_CAMERA2_PROVIDER_PUBLIC_H
-
-#include "bsv/core_types.h"
-
-#endif  // BSV_CAMERA2_PROVIDER_PUBLIC_H

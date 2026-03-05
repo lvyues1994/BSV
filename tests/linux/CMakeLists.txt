@@ -2,6 +2,7 @@ function(bsv_add_test target source_file)
     add_executable(${target} ${source_file})
     target_link_libraries(${target} PRIVATE bsv)
     target_include_directories(${target} PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src/controller/include
         ${PROJECT_SOURCE_DIR}/src/camera/include
         ${PROJECT_SOURCE_DIR}/src/csc/include

@@ -4,7 +4,7 @@
 #include <mutex>
 #include <string>
 
-#include "../../../controller/include/bsv/core_types.h"
+#include "bsv/core_types.h"
 
 namespace bsv {
 

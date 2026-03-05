@@ -1,7 +1,7 @@
 #ifndef BSV_LINUX_BUFFER_H
 #define BSV_LINUX_BUFFER_H
 
-#include "../../../controller/include/bsv/buffer.h"
+#include "bsv/buffer.h"
 
 namespace bsv {
 

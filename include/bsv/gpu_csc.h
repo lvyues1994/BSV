@@ -1,4 +1,0 @@
-#ifndef BSV_GPU_CSC_PUBLIC_H
-#define BSV_GPU_CSC_PUBLIC_H
-
-#endif  // BSV_GPU_CSC_PUBLIC_H
