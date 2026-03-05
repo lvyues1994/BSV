@@ -270,41 +270,45 @@
       "complete": true
     },
     {
-      "task": "Refactor Project Directory Structure",
-      "description": "按平台分层重构目录并更新构建与文档路径引用。",
+      "task": "Refactor Project Layout By Modules",
+      "description": "按camera、csc、controller模块重构目录并由CMake选择平台实现。",
       "steps": [
         {
           "step": 1,
-          "description": "将公共代码迁移到core目录并调整include路径"
+          "description": "将controller接口与实现迁移到src/controller并只对外导出"
         },
         {
           "step": 2,
-          "description": "将平台实现迁移到platform/android与platform/linux"
+          "description": "将camera模块拆分为src/camera/include与平台实现目录"
         },
         {
           "step": 3,
-          "description": "将测试迁移到tests/linux与tests/android"
+          "description": "将csc模块拆分为src/csc/include与平台实现目录"
         },
         {
           "step": 4,
-          "description": "更新CMakeLists与文档中的目录路径"
+          "description": "将平台实现放入src/*/android与src/*/linux"
+        },
+        {
+          "step": 5,
+          "description": "更新CMakeLists与文档中的路径并移除平台宏分支"
         }
       ],
-      "acceptance-criteria": "目录结构必须符合platform/android与platform/linux的分层规则。公共代码必须集中在core目录且include路径可正确解析。tests必须分离为tests/linux与tests/android并可被CMake识别。CMake与文档中的路径引用必须与新结构一致。",
+      "acceptance-criteria": "目录结构必须在src下包含camera、csc、controller三大模块。camera与csc需包含include与平台实现目录且不对外导出。controller为唯一对外接口并位于include/bsv/controller.h。CMake必须通过平台选项选择平台实现且源码中不再使用平台宏分支。文档与构建路径引用必须与新结构一致。",
       "test-plan": {
         "unit": [
-          "核心库头文件在移动后仍能被独立编译目标解析"
+          "controller对外头文件在移动后仍可被独立编译目标解析"
         ],
         "integration": [
-          "更新目录后CMake配置仍可生成静态库与Linux测试目标",
-          "Linux测试目标在新目录结构下可被构建并执行"
+          "更新目录后CMake配置仍可生成静态库并选择Linux实现",
+          "更新目录后Linux测试目标可被构建并执行"
         ],
         "e2e-manual": []
       },
       "skills": [
         "verification-before-completion"
       ],
-      "complete": true
+      "complete": false
     }
   ]
 }
