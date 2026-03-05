@@ -13,12 +13,38 @@ enum class PixelFormat : uint32_t {
     kRGBA8888,
 };
 
+enum class PlatformHandleType : uint32_t {
+    kUnknown = 0,
+    kDmaBuf,
+    kAndroidHardwareBuffer,
+    kHostMemory,
+};
+
 struct BufferDesc {
     uint32_t width = 0;
     uint32_t height = 0;
     uint32_t stride = 0;
     PixelFormat format = PixelFormat::kUnknown;
     size_t size_in_bytes = 0;
+};
+
+struct PlatformHandle {
+    PlatformHandleType type = PlatformHandleType::kUnknown;
+    void* handle = nullptr;
+    size_t size = 0;
+    BufferDesc desc;
+};
+
+enum class BufferAccessMode : uint32_t {
+    kRead = 0,
+    kWrite,
+    kReadWrite,
+};
+
+struct BufferMapping {
+    void* data = nullptr;
+    size_t size = 0;
+    BufferAccessMode mode = BufferAccessMode::kRead;
 };
 
 enum class BsvState : uint32_t {
@@ -46,6 +72,8 @@ public:
     virtual void* Data() = 0;
     virtual const void* Data() const = 0;
     virtual size_t Size() const = 0;
+    virtual BsvError Map(BufferAccessMode mode, BufferMapping* mapping) = 0;
+    virtual void Unmap(BufferMapping* mapping) = 0;
 };
 
 class IBufferAllocator {
@@ -54,6 +82,7 @@ public:
     virtual BsvError Initialize() = 0;
     virtual void Shutdown() = 0;
     virtual BsvError Allocate(const BufferDesc& desc, IBuffer** out_buffer) = 0;
+    virtual BsvError ImportFromHandle(const PlatformHandle& handle, IBuffer** out_buffer) = 0;
     virtual void Release(IBuffer* buffer) = 0;
 };
 

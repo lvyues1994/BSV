@@ -44,3 +44,6 @@
 *.docx
 *.pdf
 *.txt
+
+# Auto-detected patterns
+completed-tdd-archives/

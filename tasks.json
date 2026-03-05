@@ -70,7 +70,7 @@
         "tdd-workflow",
         "testing-safe-protocol"
       ],
-      "complete": false
+      "complete": true
     },
     {
       "task": "Implement Linux GPU CSC Converter",
