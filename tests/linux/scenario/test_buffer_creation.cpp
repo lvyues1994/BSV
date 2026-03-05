@@ -1,4 +1,4 @@
-#include "bsv/buffer.h"
+#include "bsv/buffer_allocator.h"
 
 #include <cassert>
 #include <cstdint>

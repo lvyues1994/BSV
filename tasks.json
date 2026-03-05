@@ -304,7 +304,7 @@
       "skills": [
         "verification-before-completion"
       ],
-      "complete": false
+      "complete": true
     }
   ]
 }

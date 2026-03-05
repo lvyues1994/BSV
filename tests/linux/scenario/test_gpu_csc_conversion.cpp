@@ -1,4 +1,4 @@
-#include "bsv/buffer.h"
+#include "bsv/buffer_allocator.h"
 #include "bsv/gpu_csc.h"
 
 #include <cassert>

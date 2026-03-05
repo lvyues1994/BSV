@@ -10,7 +10,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BSV_BUILD_TESTS "Build BSV unit tests" ON)
 
-add_subdirectory(src)
+add_subdirectory(core)
+add_subdirectory(platform)
 
 if(BSV_BUILD_TESTS)
     enable_testing()

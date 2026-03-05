@@ -1,6 +1,6 @@
 #include "bsv/controller.h"
 
-#include "bsv/buffer.h"
+#include "bsv/buffer_allocator.h"
 
 #include <cassert>
 #include <cstring>

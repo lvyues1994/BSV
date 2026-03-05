@@ -1,4 +1,5 @@
-#include "bsv/buffer.h"
+#include "bsv/buffer_allocator.h"
+#include "bsv/linux_buffer.h"
 
 #include <cstring>
 #include <new>
