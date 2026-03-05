@@ -206,7 +206,7 @@
       "skills": [
         "testing-safe-protocol"
       ],
-      "complete": false
+      "complete": true
     },
     {
       "task": "Implement BSV Controller API",

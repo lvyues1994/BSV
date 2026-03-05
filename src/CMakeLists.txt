@@ -7,6 +7,7 @@ if(ANDROID)
     target_sources(bsv
         PRIVATE
             camera2_provider_android.cpp
+            gpu_csc_android.cpp
     )
 endif()
 
