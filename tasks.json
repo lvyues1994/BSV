@@ -1,0 +1,239 @@
+{
+  "tasks": [
+    {
+      "task": "Define Core Types And Interfaces",
+      "description": "定义跨平台核心类型与抽象接口以统一Camera与CSC的数据流。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "定义PixelFormat与BufferDesc等基础数据结构"
+        },
+        {
+          "step": 2,
+          "description": "定义IBuffer与IBufferAllocator抽象接口"
+        },
+        {
+          "step": 3,
+          "description": "定义ICameraProvider与ICscConverter抽象接口"
+        },
+        {
+          "step": 4,
+          "description": "定义BSV状态机与错误码约定"
+        }
+      ],
+      "acceptance-criteria": "核心类型必须支持描述NV21、NV12与RGBA8888等格式。BufferDesc必须包含宽高、stride与格式等关键信息。抽象接口必须覆盖初始化、启动、停止与帧处理的最小行为集合。状态机必须覆盖Closed、Opening、Running与Closing并具有明确的错误码返回。",
+      "test-plan": {
+        "unit": [
+          "当BufferDesc宽或高为0时返回无效状态并拒绝创建",
+          "PixelFormat在枚举转换时必须对NV12与NV21给出不同标识",
+          "状态机从Closed到Running的非法跳转必须返回预期错误码"
+        ],
+        "integration": [],
+        "e2e-manual": []
+      },
+      "skills": [
+        "tdd-workflow",
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Implement Buffer Abstraction Layer",
+      "description": "实现跨平台Buffer抽象层以统一DMABuffer与平台句柄管理。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "实现Linux侧IBuffer与IBufferAllocator基础实现"
+        },
+        {
+          "step": 2,
+          "description": "定义可扩展的PlatformHandle载体以容纳AHardwareBuffer"
+        },
+        {
+          "step": 3,
+          "description": "提供Buffer的只读与可写访问控制能力"
+        }
+      ],
+      "acceptance-criteria": "IBuffer必须支持从外部句柄与内部创建两种路径。Buffer必须暴露宽高、stride与像素格式等只读信息。Linux实现必须可用于GPU CSC测试的输入与输出缓冲。",
+      "test-plan": {
+        "unit": [
+          "通过外部句柄创建IBuffer时必须保留传入的宽高与stride",
+          "通过内部创建IBuffer时必须返回可用的句柄与有效的BufferDesc",
+          "IBuffer的只读标记为true时写入请求必须被拒绝"
+        ],
+        "integration": [
+          "Buffer实现与Core Types连接后可创建可读写RGBA8888缓冲"
+        ],
+        "e2e-manual": []
+      },
+      "skills": [
+        "tdd-workflow",
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Implement Linux GPU CSC Converter",
+      "description": "在Linux上实现基于EGL与OpenGL ES的NV21和NV12到RGBA8888转换。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "搭建EGL上下文与OpenGL ES 2.0或3.0渲染管线"
+        },
+        {
+          "step": 2,
+          "description": "实现NV21和NV12到RGBA8888的GPU Shader"
+        },
+        {
+          "step": 3,
+          "description": "实现GPU输出写入IBuffer的渲染路径"
+        },
+        {
+          "step": 4,
+          "description": "实现CPU参考转换用于逐像素正确性校验"
+        }
+      ],
+      "acceptance-criteria": "Linux平台必须可创建EGL上下文并成功编译Shader。NV21与NV12输入必须在GPU上转换为RGBA8888并写入IBuffer。GPU输出与CPU参考实现逐像素比对必须在允许误差范围内一致。",
+      "test-plan": {
+        "unit": [
+          "给定2x2的NV12测试图像时GPU输出RGBA8888必须与CPU参考逐像素一致",
+          "给定2x2的NV21测试图像时GPU输出RGBA8888必须与CPU参考逐像素一致",
+          "Shader编译失败时必须返回明确错误码并释放EGL资源"
+        ],
+        "integration": [
+          "Linux GPU CSC与Buffer层连接后可将NV12输入写入RGBA8888输出Buffer",
+          "Linux GPU CSC与Buffer层连接后可将NV21输入写入RGBA8888输出Buffer"
+        ],
+        "e2e-manual": []
+      },
+      "skills": [
+        "tdd-workflow",
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Implement Android Camera2 Provider",
+      "description": "实现Android Camera2采集模块并按初始化参数输出帧数据。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "定义Camera2初始化参数与错误处理规则"
+        },
+        {
+          "step": 2,
+          "description": "实现Camera2采集与帧回调到ICameraProvider"
+        },
+        {
+          "step": 3,
+          "description": "实现基于外部请求的摄像头切换控制"
+        }
+      ],
+      "acceptance-criteria": "Camera2 Provider必须支持外部传入格式与参数并初始化成功。采集回调必须向上层提供帧描述与Buffer句柄。摄像头切换请求必须在Running状态下生效并保证状态机一致性。",
+      "test-plan": {
+        "unit": [
+          "当初始化参数缺少必要字段时必须返回明确错误码",
+          "当调用顺序为Open后Close时状态机必须返回Closed"
+        ],
+        "integration": [],
+        "e2e-manual": []
+      },
+      "skills": [
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Implement Android GPU CSC Converter",
+      "description": "实现Android平台基于OpenGL ES的NV21和NV12到RGBA8888转换并写入AHardwareBuffer。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "复用Linux Shader源码并封装Android渲染路径"
+        },
+        {
+          "step": 2,
+          "description": "实现AHardwareBuffer与EGL图像的互操作"
+        },
+        {
+          "step": 3,
+          "description": "实现输出到RGBA8888 AHardwareBuffer的渲染管线"
+        }
+      ],
+      "acceptance-criteria": "Android CSC必须支持NV21与NV12输入格式并输出RGBA8888到AHardwareBuffer。Shader代码必须与Linux版本保持一致以复用正确性验证。OpenGL ES 2.0与3.0环境均应能初始化成功。",
+      "test-plan": {
+        "unit": [
+          "当输入格式非NV12或NV21时必须返回明确错误码",
+          "当EGL上下文初始化失败时必须释放已分配资源"
+        ],
+        "integration": [],
+        "e2e-manual": []
+      },
+      "skills": [
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Implement BSV Controller API",
+      "description": "实现对外C++接口并编排Camera与CSC的数据流。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "实现Open与Close接口并管理内部线程"
+        },
+        {
+          "step": 2,
+          "description": "实现selectCamera接口并驱动Camera切换"
+        },
+        {
+          "step": 3,
+          "description": "实现帧到RGBA8888输出Buffer的处理流程"
+        }
+      ],
+      "acceptance-criteria": "对外接口必须提供open、close与selectCamera并具备线程安全保证。运行中必须将Camera帧通过CSC输出到外部提供的RGBA8888 DMABuffer。错误状态必须以明确错误码返回且不造成资源泄漏。",
+      "test-plan": {
+        "unit": [
+          "使用Mock Camera与Mock CSC时调用open必须进入Running状态",
+          "在Running状态调用close后必须回到Closed并释放内部线程"
+        ],
+        "integration": [
+          "BSV Controller连接Linux GPU CSC后可将NV12帧输出到RGBA8888 Buffer",
+          "BSV Controller连接Linux GPU CSC后可将NV21帧输出到RGBA8888 Buffer"
+        ],
+        "e2e-manual": []
+      },
+      "skills": [
+        "tdd-workflow",
+        "testing-safe-protocol"
+      ],
+      "complete": false
+    },
+    {
+      "task": "Add Build Presets And Documentation",
+      "description": "新增CMakePresets与中文文档并记录对话过程。",
+      "steps": [
+        {
+          "step": 1,
+          "description": "编写CMakePresets并包含Linux与Android配置"
+        },
+        {
+          "step": 2,
+          "description": "撰写中文架构说明与构建说明文档"
+        },
+        {
+          "step": 3,
+          "description": "创建并追加docs/对话记录.md"
+        }
+      ],
+      "acceptance-criteria": "CMakePresets必须包含可用于nvim选择的Linux与Android预设并指向NDK r25c路径。中文文档必须描述模块职责、构建方式与平台差异。对话记录文档必须以中文追加当前会话内容。",
+      "test-plan": {
+        "unit": [],
+        "integration": [],
+        "e2e-manual": []
+      },
+      "skills": [],
+      "complete": false
+    }
+  ]
+}

@@ -39,3 +39,8 @@
 
 # debug information files
 *.dwo
+
+# Local documents
+*.docx
+*.pdf
+*.txt
