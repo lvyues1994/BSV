@@ -1,6 +1,6 @@
-#ifndef BSV_LEGACY_CAMERA2_PROVIDER_H
-#define BSV_LEGACY_CAMERA2_PROVIDER_H
+#ifndef BSV_CAMERA2_PROVIDER_PUBLIC_H
+#define BSV_CAMERA2_PROVIDER_PUBLIC_H
 
-#include "../../core/include/bsv/camera2_provider.h"
+#include "bsv/core_types.h"
 
-#endif  // BSV_LEGACY_CAMERA2_PROVIDER_H
+#endif  // BSV_CAMERA2_PROVIDER_PUBLIC_H

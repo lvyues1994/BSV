@@ -1,6 +1,6 @@
-#ifndef BSV_LEGACY_BUFFER_ALLOCATOR_H
-#define BSV_LEGACY_BUFFER_ALLOCATOR_H
+#ifndef BSV_BUFFER_ALLOCATOR_PUBLIC_H
+#define BSV_BUFFER_ALLOCATOR_PUBLIC_H
 
-#include "../../platform/linux/include/bsv/buffer_allocator.h"
+#include "../../src/camera/include/bsv/linux_buffer.h"
 
-#endif  // BSV_LEGACY_BUFFER_ALLOCATOR_H
+#endif  // BSV_BUFFER_ALLOCATOR_PUBLIC_H

@@ -1,6 +1,6 @@
-#ifndef BSV_LEGACY_CORE_TYPES_H
-#define BSV_LEGACY_CORE_TYPES_H
+#ifndef BSV_CORE_TYPES_PUBLIC_H
+#define BSV_CORE_TYPES_PUBLIC_H
 
-#include "../../core/include/bsv/core_types.h"
+#include "../../src/controller/include/bsv/core_types.h"
 
-#endif  // BSV_LEGACY_CORE_TYPES_H
+#endif  // BSV_CORE_TYPES_PUBLIC_H

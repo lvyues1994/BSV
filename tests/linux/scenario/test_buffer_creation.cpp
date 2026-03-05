@@ -1,4 +1,4 @@
-#include "bsv/buffer_allocator.h"
+#include "bsv/linux_buffer.h"
 
 #include <cassert>
 #include <cstdint>
@@ -38,7 +38,6 @@ int main() {
     assert(external_buffer->GetDesc().stride == desc.stride);
     assert(external_buffer->GetDesc().format == desc.format);
     allocator.Release(external_buffer);
-
     allocator.Shutdown();
     return 0;
 }

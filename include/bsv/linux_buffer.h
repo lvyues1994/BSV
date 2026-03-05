@@ -1,6 +1,6 @@
-#ifndef BSV_LEGACY_LINUX_BUFFER_H
-#define BSV_LEGACY_LINUX_BUFFER_H
+#ifndef BSV_LINUX_BUFFER_PUBLIC_H
+#define BSV_LINUX_BUFFER_PUBLIC_H
 
-#include "../../platform/linux/include/bsv/linux_buffer.h"
+#include "../../src/camera/include/bsv/linux_buffer.h"
 
-#endif  // BSV_LEGACY_LINUX_BUFFER_H
+#endif  // BSV_LINUX_BUFFER_PUBLIC_H

@@ -1,7 +1,7 @@
 #ifndef BSV_BUFFER_H
 #define BSV_BUFFER_H
 
-#include "bsv/core_types.h"
+#include "core_types.h"
 
 namespace bsv {
 

@@ -7,8 +7,8 @@
 #include <deque>
 #include <mutex>
 
-#include "bsv/buffer.h"
-#include "bsv/core_types.h"
+#include "buffer.h"
+#include "core_types.h"
 
 namespace bsv {
 

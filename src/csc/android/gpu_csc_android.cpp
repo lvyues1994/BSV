@@ -1,7 +1,5 @@
 #include "bsv/gpu_csc.h"
 
-#ifdef __ANDROID__
-
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <GLES2/gl2.h>
@@ -432,5 +430,3 @@ BsvError AndroidGpuCscConverter::DrawToOutput(const IBuffer& src, IBuffer& dst) 
 }
 
 }  // namespace bsv
-
-#endif  // __ANDROID__

@@ -1,6 +1,6 @@
-#ifndef BSV_LEGACY_CONTROLLER_H
-#define BSV_LEGACY_CONTROLLER_H
+#ifndef BSV_CONTROLLER_PUBLIC_H
+#define BSV_CONTROLLER_PUBLIC_H
 
-#include "../../core/include/bsv/controller.h"
+#include "../../src/controller/include/bsv/controller.h"
 
-#endif  // BSV_LEGACY_CONTROLLER_H
+#endif  // BSV_CONTROLLER_PUBLIC_H

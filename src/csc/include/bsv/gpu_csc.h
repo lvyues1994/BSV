@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "bsv/core_types.h"
+#include "../../../controller/include/bsv/core_types.h"
 
 namespace bsv {
 
@@ -50,7 +50,6 @@ private:
     int surface_height_ = 0;
 };
 
-#ifdef __ANDROID__
 class AndroidGpuCscConverter final : public ICscConverter {
 public:
     AndroidGpuCscConverter();
@@ -98,7 +97,6 @@ private:
     int surface_width_ = 0;
     int surface_height_ = 0;
 };
-#endif  // __ANDROID__
 
 std::vector<uint8_t> ConvertNv12ToRgba(const IBuffer& src);
 std::vector<uint8_t> ConvertNv21ToRgba(const IBuffer& src);

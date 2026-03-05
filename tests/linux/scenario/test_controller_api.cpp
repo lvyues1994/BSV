@@ -1,6 +1,5 @@
 #include "bsv/controller.h"
-
-#include "bsv/buffer_allocator.h"
+#include "bsv/linux_buffer.h"
 
 #include <cassert>
 #include <cstring>
@@ -91,9 +90,6 @@ private:
 int main() {
     FakeCameraProvider camera;
     FakeCscConverter csc;
-    bsv::LinuxBufferAllocator allocator;
-    assert(allocator.Initialize() == bsv::BsvError::kOk);
-
     bsv::BufferDesc output_desc{16, 16, 16, bsv::PixelFormat::kRGBA8888, 0};
     std::vector<uint8_t> output_data(output_desc.width * output_desc.height * 4);
     bsv::PlatformHandle output_handle{};
@@ -101,6 +97,9 @@ int main() {
     output_handle.handle = output_data.data();
     output_handle.size = output_data.size();
     output_handle.desc = output_desc;
+
+    bsv::LinuxBufferAllocator allocator;
+    assert(allocator.Initialize() == bsv::BsvError::kOk);
 
     bsv::ControllerConfig config{};
     config.camera = &camera;
@@ -116,7 +115,7 @@ int main() {
     assert(controller.SelectCamera("1") == bsv::BsvError::kOk);
     assert(controller.Close() == bsv::BsvError::kOk);
     assert(controller.SelectCamera("1") == bsv::BsvError::kInvalidState);
-
     allocator.Shutdown();
+
     return 0;
 }

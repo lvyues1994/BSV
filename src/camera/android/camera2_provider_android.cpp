@@ -1,7 +1,5 @@
 #include "bsv/camera2_provider.h"
 
-#ifdef __ANDROID__
-
 #include <android/hardware_buffer.h>
 #include <camera/NdkCameraDevice.h>
 #include <camera/NdkCameraManager.h>
@@ -488,5 +486,3 @@ void AndroidCamera2Provider::OnCameraError(int error) {
 }
 
 }  // namespace bsv
-
-#endif  // __ANDROID__

@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BSV_BUILD_TESTS "Build BSV unit tests" ON)
+set(BSV_PLATFORM "linux" CACHE STRING "Target platform (linux or android)")
+set_property(CACHE BSV_PLATFORM PROPERTY STRINGS linux android)
 
-add_subdirectory(core)
-add_subdirectory(platform)
+add_subdirectory(src)
 
 if(BSV_BUILD_TESTS)
     enable_testing()

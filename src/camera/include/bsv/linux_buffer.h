@@ -1,7 +1,7 @@
-#ifndef BSV_PLATFORM_LINUX_BUFFER_H
-#define BSV_PLATFORM_LINUX_BUFFER_H
+#ifndef BSV_LINUX_BUFFER_H
+#define BSV_LINUX_BUFFER_H
 
-#include "bsv/buffer.h"
+#include "../../../controller/include/bsv/buffer.h"
 
 namespace bsv {
 
@@ -26,6 +26,15 @@ private:
     size_t active_writers_ = 0;
 };
 
+class LinuxBufferAllocator final : public IBufferAllocator {
+public:
+    BsvError Initialize() override;
+    void Shutdown() override;
+    BsvError Allocate(const BufferDesc& desc, IBuffer** out_buffer) override;
+    BsvError ImportFromHandle(const PlatformHandle& handle, IBuffer** out_buffer) override;
+    void Release(IBuffer* buffer) override;
+};
+
 }  // namespace bsv
 
-#endif  // BSV_PLATFORM_LINUX_BUFFER_H
+#endif  // BSV_LINUX_BUFFER_H
